@@ -1,7 +1,7 @@
 package ro.pub.cs.systems.eim.lab07.googlesearcher.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import ro.pub.cs.systems.eim.lab07.googlesearcher.R;
+import ro.pub.cs.systems.eim.lab07.googlesearcher.general.Constants;
+import ro.pub.cs.systems.eim.lab07.googlesearcher.network.GoogleSearcherAsyncTask;
 
 public class GoogleSearcherActivity extends AppCompatActivity {
 
@@ -27,6 +29,19 @@ public class GoogleSearcherActivity extends AppCompatActivity {
             // split a multiple word (separated by space) keyword and link them through +
             // prepend the keyword with "search?q=" string
             // start the GoogleSearcherAsyncTask passing the keyword
+
+            String keyword = keywordEditText.getText().toString();
+            if (keyword.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Empty keyword!", Toast.LENGTH_LONG).show();
+            }
+
+            String list[] = keyword.split(" ");
+            String result = "";
+            for (int i = 0; i < list.length; i++)
+                result += "+" + list[i];
+
+            result = Constants.SEARCH_PREFIX + result;
+            new GoogleSearcherAsyncTask(googleResultsWebView).execute(result);
         }
     }
 

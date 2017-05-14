@@ -43,7 +43,7 @@ public class LandmarkListerActivity extends AppCompatActivity {
                 Toast.makeText(getApplication(), Constants.MISSING_INFORMATION_ERROR_MESSAGE, Toast.LENGTH_LONG).show();
                 return;
             }
-            new LandmarkListerAsyncTask(landmarksListView).execute(northString, southString, eastString, westString);
+            new LandmarkListerAsyncTask(getApplicationContext(), landmarksListView).execute(northString, southString, eastString, westString);
         }
     }
 
